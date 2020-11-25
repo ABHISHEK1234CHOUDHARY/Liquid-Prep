@@ -30,6 +30,7 @@ import { GrowthStageComponent } from './growth-stage/growth-stage.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdviceComponent } from './advice/advice.component';
 import { WaterAdviceComponent } from './water-advice/water-advice.component';
+import { WeatherComponent } from './weather/weather.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   observer: true,
@@ -49,7 +50,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     GrowthStageComponent,
     SettingsComponent,
     AdviceComponent,
-    WaterAdviceComponent],
+    WaterAdviceComponent,
+    WeatherComponent],
   imports: [
     BrowserModule,
     MaterialModule,
