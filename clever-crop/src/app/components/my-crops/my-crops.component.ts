@@ -32,6 +32,10 @@ export class MyCropsComponent implements OnInit {
       this.dataSource = cropListResponse.data;
     });
     this.currentDate =  formatDate(new Date(), 'MMMM d, yyyy', 'en');
+
+    this.appService.requestWeatherInfo().subscribe(weatherInfo => {
+      console.log('weather data: ', weatherInfo.data);
+    });
   }
 
   public tabClicked(tab) {

@@ -39,7 +39,8 @@ export class AppServicesService {
   private cropUrl = '/assets/json/crop.json';
 
   // private weatherUrl = 'https://liquidprep.com/crops/';
-  private weatherUrl = '/assets/json/weather.json';
+  //private weatherUrl = '/assets/json/weather.json';
+  private weatherUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/96fd655207897b11587cfcf2b3f58f6e0792f788cf2a04daa79b53fc3d4efb32/liquidprep-cf-api/get_weather_info?geoCode=43.595,-79.640&units=m';
 
   // private adviceUrl = 'https://liquidprep.com/advice/';
   private adviceUrl = '/assets/json/advice.json';
