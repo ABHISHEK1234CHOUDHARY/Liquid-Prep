@@ -50,9 +50,11 @@ export class AppServicesService {
       map((response: CropListResponse) => {
         if (response.data) {
           response.data.map((crop) => {
+            console.log('crop: ', crop)
             this.fetchCropImage(crop);
           });
         }
+        console.log('response: ', response)
         return response;
       })
     );
@@ -77,7 +79,27 @@ export class AppServicesService {
     // TODO fix the mapping
     const defaultImage = '../assets/crops-images/missing.jpg';
 
-    if (this.imageMapping != null && this.imageMapping.cropsMap[crop.index.toString()]) {
+    if (this.imageMapping != null && this.imageMapping.cropsMap[crop.cropName]) {
+      crop.url = this.imageMapping.cropsMap[crop.cropName].url;
+
+      if (crop.cropGrowthStage) {
+        crop.cropGrowthStage.stages.forEach((stage) => {
+          const url = this.imageMapping.cropsMap[crop.cropName].stagesMap[stage.stageNumber.toString()].url;
+          stage.url = url;
+        });
+      }
+    } else {
+      crop.url = defaultImage;
+
+      if (crop.cropGrowthStage) {
+        crop.cropGrowthStage.stages.forEach((stage) => {
+          const stageUrl = '../assets/crops-images/stage' + stage.stageNumber + '.png';
+          stage.url = stageUrl;
+        });
+      }
+    }
+
+    /*if (this.imageMapping != null && this.imageMapping.cropsMap[crop.index.toString()]) {
       crop.url = this.imageMapping.cropsMap[crop.index.toString()].url;
 
       if (crop.cropGrowthStage) {
@@ -95,7 +117,7 @@ export class AppServicesService {
           stage.url = stageUrl;
         });
       }
-    }
+    }*/
   }
 
   public getMyCrops(): Observable<CropListResponse> {
@@ -117,7 +139,7 @@ export class AppServicesService {
   private getEmptyMyCrops(): CropListResponse {
     const emptyCropsResponse = new CropListResponse();
     emptyCropsResponse.status = 'success';
-    emptyCropsResponse.statusCode = '200';
+    emptyCropsResponse.statusCode = 200;
     emptyCropsResponse.message = '';
     emptyCropsResponse.data = new Array<Crop>();
 

@@ -5,10 +5,14 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ThemePalette } from '@angular/material/core';
 
-import { AppServicesService } from '../app-services.service';
-import { CropListResponse } from '../models/api/CropListResponse';
-import { CropInfoResponse } from '../models/api/CropInfoResponse';
-import { Crop } from '../models/Crop';
+import { AppServicesService } from '../../app-services.service';
+import { CropListResponse } from '../../models/api/CropListResponse';
+import { CropInfoResponse } from '../../models/api/CropInfoResponse';
+import { Crop } from '../../models/Crop';
+import { DataService } from '../../service/DataService';
+import { WeatherResponse } from 'src/app/models/api/WeatherResponse';
+import { WeatherDataService } from 'src/app/service/WeatherDataService';
+import { Today } from 'src/app/models/Today';
 
 @Component({
   selector: 'app-my-crops',
@@ -25,7 +29,8 @@ export class MyCropsComponent implements OnInit {
 
   currentDate = '';
 
-  constructor(private appService: AppServicesService, private router: Router, private location: Location) { }
+  constructor(private appService: AppServicesService, private router: Router, private location: Location,
+              private weatherService: WeatherDataService) { }
 
   ngOnInit(): void {
     this.appService.getMyCrops().subscribe(cropListResponse => {
@@ -33,8 +38,14 @@ export class MyCropsComponent implements OnInit {
     });
     this.currentDate =  formatDate(new Date(), 'MMMM d, yyyy', 'en');
 
-    this.appService.requestWeatherInfo().subscribe(weatherInfo => {
-      console.log('weather data: ', weatherInfo.data);
+    /*this.dataService.getWeatherInfo().subscribe((weatherInfo: WeatherResponse) => {
+      //console.log('weather data: ', weatherInfo);
+      const todayWeather = WeatherService.getInstance().createTodayWeather(weatherInfo);
+      console.log('today weather: ', todayWeather);
+    });*/
+
+    this.weatherService.getTodayWeather().subscribe((todayWeather: Today) => {
+      console.log('today weather: ', todayWeather);
     });
   }
 

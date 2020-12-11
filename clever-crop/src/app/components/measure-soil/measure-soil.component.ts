@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { SwiperOptions } from 'swiper';
-import { MeasureSoilItems } from '../models/MeasureSoil';
+import { MeasureSoilItems } from '../../models/MeasureSoil';
 
 @Component({
   selector: 'app-measure-soil',
